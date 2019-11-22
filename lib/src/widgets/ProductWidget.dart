@@ -22,11 +22,12 @@ class ProductWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.network(
-              product?.picture,
-              fit: BoxFit.fill,
-              height: product.title.length < 40 ? 100 : 80,
-              width: MediaQuery.of(context).size.width,
+            Expanded(
+              child: Image.network(
+                product?.picture,
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width,
+              ),
             ),
             Wrap(children: <Widget>[
               Text(
