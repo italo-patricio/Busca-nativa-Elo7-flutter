@@ -1,12 +1,12 @@
+import 'package:elo7_desafio/src/models/Pagination.dart';
 import 'package:elo7_desafio/src/models/Product.dart';
 
 class ProductSearchResult {
   int totalCount;
   List<Product> items;
+  Pagination pagination;
 
-  ProductSearchResult({this.totalCount, this.items});
-
-  ProductSearchResult.fromJson(List json) {
+  ProductSearchResult.fromJson(List<dynamic> json) {
     totalCount = json.length;
     if (json != null) {
       items = new List<Product>();

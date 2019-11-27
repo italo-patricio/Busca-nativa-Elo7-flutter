@@ -1,3 +1,4 @@
+import 'package:elo7_desafio/src/models/PaginatedProductsResult.dart';
 import 'package:elo7_desafio/src/models/Product.dart';
 import 'package:elo7_desafio/src/services/ProductSearchResult.dart';
 import 'package:elo7_desafio/src/blocs/ProductServiceBloc.dart';
@@ -30,6 +31,8 @@ class _HomePageState extends State<HomePage> {
     });
 
     _productServiceBloc.searchSink.add('');
+
+    _productServiceBloc.scrollLoadItem();
   }
 
   @override
@@ -83,10 +86,10 @@ class _HomePageState extends State<HomePage> {
 
         ],
       ),
-      body: StreamBuilder<ProductSearchResult>(
-          stream: _productServiceBloc.apiResultFlux,
+      body: StreamBuilder<PaginatedProductsResult>(
+          stream: _productServiceBloc.apiResultPaginated,
           builder: (BuildContext context,
-              AsyncSnapshot<ProductSearchResult> snapshot) {
+              AsyncSnapshot<PaginatedProductsResult> snapshot) {
             print('hasData ${snapshot.hasData}');
             return snapshot.hasData
                 ? GridView.builder(
@@ -94,10 +97,10 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     addRepaintBoundaries: true,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200),
-                    itemCount: snapshot.data.items.length,
+                        maxCrossAxisExtent: 300),
+                    itemCount: snapshot.data.result.elements.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Product item = snapshot.data.items[index];
+                      Product item = snapshot.data.result.elements[index];
                       return ProductWidget(item);
                     },
                   )
